@@ -1,4 +1,5 @@
 package com.empik.numberadder.service;
 
-public class AdderService {
+public interface AdderService {
+    int add(String numbers);
 }
