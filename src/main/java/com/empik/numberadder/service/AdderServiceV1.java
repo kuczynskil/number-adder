@@ -10,7 +10,8 @@ public class AdderServiceV1 implements AdderService {
     @Override
     public int add(String numbers) {
         if (numbers.isEmpty()) return 0;
-        numbers = numbers.replaceAll(" ", "");
+
+        numbers = numbers.replaceAll("\\s+", "");
         return Arrays.stream(numbers.split(",")).mapToInt(Integer::parseInt).sum();
     }
 }
