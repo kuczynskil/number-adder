@@ -19,10 +19,6 @@ class AdderServiceV1Test {
         assertEquals(2, adderServiceV1.add("1,1"));
         assertEquals(20, adderServiceV1.add("1,19"));
         assertEquals(5, adderServiceV1.add("2,3"));
-
-        assertEquals(2, adderServiceV1.add("  1,1  "));
-        assertEquals(20, adderServiceV1.add("1   ,   19"));
-        assertEquals(5, adderServiceV1.add(" 2 , 3 "));
     }
 
     @Test
@@ -30,5 +26,16 @@ class AdderServiceV1Test {
         assertEquals(33, adderServiceV1.add("11,11,11"));
         assertEquals(1, adderServiceV1.add("1"));
         assertEquals(10, adderServiceV1.add("2,1,2,1,4"));
+    }
+
+    @Test
+    void returns_sum_of_numbers_separated_by_comma_where_input_contains_whitespaces() {
+        assertEquals(2, adderServiceV1.add("  1,1  "));
+        assertEquals(20, adderServiceV1.add("1   ,   19"));
+        assertEquals(5, adderServiceV1.add(" 2 , 3 "));
+
+        assertEquals(33, adderServiceV1.add("  11 ,11,11   "));
+        assertEquals(1, adderServiceV1.add(" 1      "));
+        assertEquals(10, adderServiceV1.add("2 ,1 ,  2,1,4"));
     }
 }
