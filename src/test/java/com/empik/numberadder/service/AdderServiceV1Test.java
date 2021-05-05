@@ -19,6 +19,10 @@ class AdderServiceV1Test {
         assertEquals(2, adderServiceV1.add("1,1"));
         assertEquals(20, adderServiceV1.add("1,19"));
         assertEquals(5, adderServiceV1.add("2,3"));
+
+        assertEquals(2, adderServiceV1.add("  1,1  "));
+        assertEquals(20, adderServiceV1.add("1   ,   19"));
+        assertEquals(5, adderServiceV1.add(" 2 , 3 "));
     }
 
     @Test
