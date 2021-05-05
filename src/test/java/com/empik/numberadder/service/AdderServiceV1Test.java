@@ -20,4 +20,11 @@ class AdderServiceV1Test {
         assertEquals(20, adderServiceV1.add("1,19"));
         assertEquals(5, adderServiceV1.add("2,3"));
     }
+
+    @Test
+    void returns_sum_of_unknown_amount_of_numbers_separated_by_comma() {
+        assertEquals(33, adderServiceV1.add("11,11,11"));
+        assertEquals(1, adderServiceV1.add("1"));
+        assertEquals(10, adderServiceV1.add("2,1,2,1,4"));
+    }
 }
