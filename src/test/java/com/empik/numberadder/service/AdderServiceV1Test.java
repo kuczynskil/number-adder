@@ -41,10 +41,10 @@ class AdderServiceV1Test {
 
     @Test
     void returns_sum_of_numbers_separated_by_comma_or_a_new_line() {
-        assertEquals(2, adderServiceV1.add("1/n1"));
-        assertEquals(5, adderServiceV1.add("1,1/n3"));
-        assertEquals(15, adderServiceV1.add("5/n8,2"));
-        assertEquals(6, adderServiceV1.add("1/n1/n1/n1/n1/n1"));
+        assertEquals(2, adderServiceV1.add("1\n1"));
+        assertEquals(5, adderServiceV1.add("1,1\n3"));
+        assertEquals(15, adderServiceV1.add("5\n8,2"));
+        assertEquals(6, adderServiceV1.add("1\n1\n1\n1\n1\n1"));
 
     }
 }

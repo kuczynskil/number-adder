@@ -11,7 +11,9 @@ public class AdderServiceV1 implements AdderService {
     public int add(String numbers) {
         if (numbers.isEmpty()) return 0;
 
+        numbers = numbers.replace("\n", ",");
         numbers = numbers.replaceAll("\\s+", "");
         return Arrays.stream(numbers.split(",")).mapToInt(Integer::parseInt).sum();
     }
+
 }
