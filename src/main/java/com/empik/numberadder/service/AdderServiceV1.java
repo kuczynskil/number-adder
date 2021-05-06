@@ -2,9 +2,7 @@ package com.empik.numberadder.service;
 
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class AdderServiceV1 implements AdderService {
@@ -12,6 +10,7 @@ public class AdderServiceV1 implements AdderService {
     private static final Set<Character> SPECIAL_CHARACTERS = new HashSet<>(Arrays.asList(
             '<', '(', '[', '{', '\\', '^', '-', '=', '$', '!', '|', ']', '}', ')', '?', '*', '+', '.', '>'));
 
+    static Map<Integer, Integer> resultOccurrence = new HashMap<>();
 
     @Override
     public int add(String numbers) {
@@ -33,7 +32,15 @@ public class AdderServiceV1 implements AdderService {
                 .filter(num -> num <= 1000)
                 .toArray();
 
-        return Arrays.stream(nums).sum();
+        int res = Arrays.stream(nums).sum();
+
+        if (resultOccurrence.containsKey(res)) {
+            int tmp = resultOccurrence.get(res);
+            tmp++;
+            resultOccurrence.put(res, tmp);
+        } else resultOccurrence.put(res, 1);
+
+        return res;
     }
 
 
@@ -67,7 +74,7 @@ public class AdderServiceV1 implements AdderService {
 
         char delimiter = numbers.charAt(2);
         if (SPECIAL_CHARACTERS.contains(delimiter)) {
-            return  "\\" + delimiter;
+            return "\\" + delimiter;
         }
         return String.valueOf(delimiter);
     }
@@ -75,7 +82,11 @@ public class AdderServiceV1 implements AdderService {
 
     public static void main(String[] args) {
         String str = "//[abc][..]1000..20";
-        System.out.println(extractDelimiters(str));
-//        System.out.println(new AdderServiceV1().add(str));
+        String str2 = "//[abc][..]1000..20";
+        String str3 = "//[abc][..]100..20";
+        System.out.println(new AdderServiceV1().add(str));
+        System.out.println(new AdderServiceV1().add(str2));
+        System.out.println(new AdderServiceV1().add(str3));
+        resultOccurrence.entrySet().forEach(System.out::println);
     }
 }
