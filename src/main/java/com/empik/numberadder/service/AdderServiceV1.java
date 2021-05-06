@@ -23,9 +23,13 @@ public class AdderServiceV1 implements AdderService {
             numbers = numbers.substring(firstDigitIndex(numbers));
         } else numbers = numbers.replace("\n", ",");
 
-
         numbers = numbers.replaceAll("\\s+", "");
-        return Arrays.stream(numbers.split(delimiters)).mapToInt(Integer::parseInt).sum();
+        int[] nums = Arrays.stream(numbers.split(delimiters))
+                .mapToInt(Integer::parseInt)
+                .filter(num -> num <= 1000)
+                .toArray();
+
+        return Arrays.stream(nums).sum();
     }
 
 
