@@ -70,4 +70,13 @@ class AdderServiceV1Test {
         assertEquals(5, adderServiceV1.add("5\n2000"));
         assertEquals(6, adderServiceV1.add("1,2,3,9000"));
     }
+
+    @Test
+    void returns_sum_of_numbers_separated_by_delimiter_longer_than_one_char() {
+        assertEquals(30, adderServiceV1.add("//abc\n10abc20"));
+        assertEquals(1020, adderServiceV1.add("//..1000..20"));
+        assertEquals(75, adderServiceV1.add("//___\n50___25___9999"));
+        assertEquals(1, adderServiceV1.add("//;;1;;2000;;7777"));
+
+    }
 }
