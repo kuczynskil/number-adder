@@ -11,6 +11,7 @@ public class AdderServiceV1 implements AdderService {
     public int add(String numbers) {
         if (numbers.isEmpty()) return 0;
         if (!Character.isDigit(numbers.charAt(numbers.length() - 1))) return -1;
+        String delimiters = ",";
 
         numbers = numbers.replace("\n", ",");
         numbers = numbers.replaceAll("\\s+", "");
