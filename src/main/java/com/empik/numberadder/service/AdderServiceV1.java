@@ -3,27 +3,27 @@ package com.empik.numberadder.service;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.stream.IntStream;
 
 @Service
 public class AdderServiceV1 implements AdderService {
 
-    public static final char[] SPECIAL_CHARACTERS =
+    private static final char[] SPECIAL_CHARACTERS =
             {'<', '(', '[', '{', '\\', '^', '-', '=', '$', '!', '|', ']', '}', ')', '?', '*', '+', '.', '>'};
 
     @Override
     public int add(String numbers) {
         if (numbers.isEmpty()) return 0;
+
         numbers = numbers.trim();
         if (!Character.isDigit(numbers.charAt(numbers.length() - 1))) return -1;
+
         String delimiters = ",";
         if (numbers.charAt(0) == '/') {
             delimiters = extractDelimiter(numbers);
             numbers = numbers.substring(firstDigitIndex(numbers));
         } else numbers = numbers.replace("\n", ",");
 
-        System.out.println(numbers);
-        System.out.println(Arrays.toString(numbers.split("\\.")));
+
         numbers = numbers.replaceAll("\\s+", "");
         return Arrays.stream(numbers.split(delimiters)).mapToInt(Integer::parseInt).sum();
     }

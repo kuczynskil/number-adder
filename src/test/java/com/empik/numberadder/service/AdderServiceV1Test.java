@@ -49,7 +49,7 @@ class AdderServiceV1Test {
     }
 
     @Test
-    void returns_minus1_for_bad_input(){
+    void returns_minus1_for_bad_input() {
         assertEquals(-1, adderServiceV1.add("1,\n"));
         assertEquals(-1, adderServiceV1.add("1,m"));
         assertEquals(-1, adderServiceV1.add("1,2,5G"));
@@ -61,5 +61,13 @@ class AdderServiceV1Test {
         assertEquals(45, adderServiceV1.add("//,23,22"));
         assertEquals(30, adderServiceV1.add("//.\n10.20"));
         assertEquals(7, adderServiceV1.add("//B3B4"));
+    }
+
+    @Test
+    void returns_sum_of_numbers_but_ommits_numbers_bigger_than_1000() {
+        assertEquals(1020, adderServiceV1.add("//.\n1000.20"));
+        assertEquals(20, adderServiceV1.add("1001,20"));
+        assertEquals(5, adderServiceV1.add("5\n2000"));
+        assertEquals(6, adderServiceV1.add("1,2,3,9000"));
     }
 }
