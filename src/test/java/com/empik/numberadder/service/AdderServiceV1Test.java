@@ -77,6 +77,13 @@ class AdderServiceV1Test {
         assertEquals(1020, adderServiceV1.add("//[..]1000..20"));
         assertEquals(75, adderServiceV1.add("//[___]\n50___25___9999"));
         assertEquals(1, adderServiceV1.add("//[;;]1;;2000;;7777"));
+    }
 
+    @Test
+    void returns_sum_of_numbers_separated_by_more_than_one_custom_delimiter() {
+        assertEquals(60, adderServiceV1.add("//[;][X]\n10;20X30"));
+        assertEquals(11, adderServiceV1.add("//[f][!][.]\n1f5!4.1"));
+        assertEquals(33, adderServiceV1.add("//[abc][d][z][s]\n10abc20d1z1s1"));
+        assertEquals(55, adderServiceV1.add("//[-][+][_]\n10-20+10-10_5"));
     }
 }
