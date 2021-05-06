@@ -1,16 +1,17 @@
 package com.empik.numberadder.service;
 
-import org.apache.logging.log4j.util.Chars;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.regex.Pattern;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class AdderServiceV1 implements AdderService {
 
-    private static final char[] SPECIAL_CHARACTERS =
-            {'<', '(', '[', '{', '\\', '^', '-', '=', '$', '!', '|', ']', '}', ')', '?', '*', '+', '.', '>'};
+    private static final Set<Character> SPECIAL_CHARACTERS = new HashSet<>(Arrays.asList(
+            '<', '(', '[', '{', '\\', '^', '-', '=', '$', '!', '|', ']', '}', ')', '?', '*', '+', '.', '>'));
+
 
     @Override
     public int add(String numbers) {
@@ -54,11 +55,8 @@ public class AdderServiceV1 implements AdderService {
                 for (int k = 0; k < delimiterChars.length; k++) {
                     String tested = delimiterChars[k];
 
-                    for (char c : SPECIAL_CHARACTERS) {
-                        if (tested.equals(String.valueOf(c))) {
-                            delimiterChars[k] = "\\" + tested;
-                            break;
-                        }
+                    if (SPECIAL_CHARACTERS.contains(tested.charAt(0))) {
+                        delimiterChars[k] = "\\" + tested;
                     }
                 }
                 delimiterArr[i] = String.join("", delimiterChars);
@@ -68,10 +66,8 @@ public class AdderServiceV1 implements AdderService {
         }
 
         char delimiter = numbers.charAt(2);
-        for (char c : SPECIAL_CHARACTERS) {
-            if (delimiter == c) {
-                return "\\" + numbers.charAt(2);
-            }
+        if (SPECIAL_CHARACTERS.contains(delimiter)) {
+            return  "\\" + delimiter;
         }
         return String.valueOf(delimiter);
     }
