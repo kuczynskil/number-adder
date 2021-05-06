@@ -1,8 +1,10 @@
 package com.empik.numberadder.service;
 
+import org.apache.logging.log4j.util.Chars;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 @Service
 public class AdderServiceV1 implements AdderService {
@@ -19,7 +21,7 @@ public class AdderServiceV1 implements AdderService {
 
         String delimiters = ",";
         if (numbers.charAt(0) == '/') {
-            delimiters = extractDelimiter(numbers);
+            delimiters = extractDelimiters(numbers);
             numbers = numbers.substring(firstDigitIndex(numbers));
         } else numbers = numbers.replace("\n", ",");
 
@@ -41,21 +43,28 @@ public class AdderServiceV1 implements AdderService {
         return -1;
     }
 
-    private static String extractDelimiter(String numbers) {
+    private static String extractDelimiters(String numbers) {
         if (numbers.contains("[") && numbers.contains("]")) {
-            String[] delimiterChars = numbers.substring(3, numbers.indexOf("]")).split("");
+            String delimiters = numbers.substring(3, numbers.lastIndexOf("]"));
+            String[] delimiterArr = delimiters.split("]\\[");
 
-            for (int i = 0; i < delimiterChars.length; i++) {
-                String tested = delimiterChars[i];
+            for (int i = 0; i < delimiterArr.length; i++) {
+                String[] delimiterChars = delimiterArr[i].split("");
 
-                for (char c : SPECIAL_CHARACTERS) {
-                    if (tested.equals(String.valueOf(c))) {
-                        delimiterChars[i] = "\\" + tested;
-                        break;
+                for (int k = 0; k < delimiterChars.length; k++) {
+                    String tested = delimiterChars[k];
+
+                    for (char c : SPECIAL_CHARACTERS) {
+                        if (tested.equals(String.valueOf(c))) {
+                            delimiterChars[k] = "\\" + tested;
+                            break;
+                        }
                     }
                 }
+                delimiterArr[i] = String.join("", delimiterChars);
             }
-            return String.join("", delimiterChars);
+
+            return String.join("|", delimiterArr);
         }
 
         char delimiter = numbers.charAt(2);
@@ -69,8 +78,8 @@ public class AdderServiceV1 implements AdderService {
 
 
     public static void main(String[] args) {
-        String str = "//[..]1000..20";
-        System.out.println(extractDelimiter(str));
-        System.out.println(new AdderServiceV1().add(str));
+        String str = "//[abc][..]1000..20";
+        System.out.println(extractDelimiters(str));
+//        System.out.println(new AdderServiceV1().add(str));
     }
 }
