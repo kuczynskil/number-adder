@@ -47,4 +47,11 @@ class AdderServiceV1Test {
         assertEquals(6, adderServiceV1.add("1\n1\n1\n1\n1\n1"));
 
     }
+
+    @Test
+    void returns_minus1_for_bad_input(){
+        assertEquals(-1, adderServiceV1.add("1,\n"));
+        assertEquals(-1, adderServiceV1.add("1,m"));
+        assertEquals(-1, adderServiceV1.add("1,2,5G"));
+    }
 }
