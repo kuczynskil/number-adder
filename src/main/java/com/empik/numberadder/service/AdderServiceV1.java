@@ -24,6 +24,7 @@ public class AdderServiceV1 implements AdderService {
         } else numbers = numbers.replace("\n", ",");
 
         numbers = numbers.replaceAll("\\s+", "");
+
         int[] nums = Arrays.stream(numbers.split(delimiters))
                 .mapToInt(Integer::parseInt)
                 .filter(num -> num <= 1000)
@@ -41,6 +42,22 @@ public class AdderServiceV1 implements AdderService {
     }
 
     private static String extractDelimiter(String numbers) {
+        if (numbers.contains("[") && numbers.contains("]")) {
+            String[] delimiterChars = numbers.substring(3, numbers.indexOf("]")).split("");
+
+            for (int i = 0; i < delimiterChars.length; i++) {
+                String tested = delimiterChars[i];
+
+                for (char c : SPECIAL_CHARACTERS) {
+                    if (tested.equals(String.valueOf(c))) {
+                        delimiterChars[i] = "\\" + tested;
+                        break;
+                    }
+                }
+            }
+            return String.join("", delimiterChars);
+        }
+
         char delimiter = numbers.charAt(2);
         for (char c : SPECIAL_CHARACTERS) {
             if (delimiter == c) {
@@ -52,7 +69,7 @@ public class AdderServiceV1 implements AdderService {
 
 
     public static void main(String[] args) {
-        String str = "//.1.1";
+        String str = "//[..]1000..20";
         System.out.println(extractDelimiter(str));
         System.out.println(new AdderServiceV1().add(str));
     }
