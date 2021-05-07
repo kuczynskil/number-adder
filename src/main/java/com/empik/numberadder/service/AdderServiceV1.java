@@ -35,9 +35,7 @@ public class AdderServiceV1 implements AdderService {
         int res = Arrays.stream(nums).sum();
 
         if (resultOccurrence.containsKey(res)) {
-            int tmp = resultOccurrence.get(res);
-            tmp++;
-            resultOccurrence.put(res, tmp);
+            resultOccurrence.put(res, resultOccurrence.get(res) + 1);
         } else resultOccurrence.put(res, 1);
 
         return res;
@@ -54,10 +52,10 @@ public class AdderServiceV1 implements AdderService {
     private static String extractDelimiters(String numbers) {
         if (numbers.contains("[") && numbers.contains("]")) {
             String delimiters = numbers.substring(3, numbers.lastIndexOf("]"));
-            String[] delimiterArr = delimiters.split("]\\[");
+            String[] delimitersArr = delimiters.split("]\\[");
 
-            for (int i = 0; i < delimiterArr.length; i++) {
-                String[] delimiterChars = delimiterArr[i].split("");
+            for (int i = 0; i < delimitersArr.length; i++) {
+                String[] delimiterChars = delimitersArr[i].split("");
 
                 for (int k = 0; k < delimiterChars.length; k++) {
                     String tested = delimiterChars[k];
@@ -66,10 +64,10 @@ public class AdderServiceV1 implements AdderService {
                         delimiterChars[k] = "\\" + tested;
                     }
                 }
-                delimiterArr[i] = String.join("", delimiterChars);
+                delimitersArr[i] = String.join("", delimiterChars);
             }
 
-            return String.join("|", delimiterArr);
+            return String.join("|", delimitersArr);
         }
 
         char delimiter = numbers.charAt(2);
@@ -77,6 +75,25 @@ public class AdderServiceV1 implements AdderService {
             return "\\" + delimiter;
         }
         return String.valueOf(delimiter);
+    }
+
+    public int[] getNegativeNumbers(String numbers) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < numbers.length(); i++) {
+            if (numbers.charAt(i) == '-') {
+                sb.append(numbers.charAt(i));
+                while (Character.isDigit(numbers.charAt(i + 1))) {
+                    sb.append(numbers.charAt(i + 1));
+                    i++;
+                }
+                sb.append(",");
+            }
+        }
+
+        return Arrays.stream(sb.toString().split(","))
+                .mapToInt(Integer::parseInt)
+                .toArray();
     }
 
 
