@@ -83,7 +83,7 @@ public class AdderServiceV1 implements AdderService {
         for (int i = 0; i < numbers.length(); i++) {
             if (numbers.charAt(i) == '-') {
                 sb.append(numbers.charAt(i));
-                while (Character.isDigit(numbers.charAt(i + 1))) {
+                while (i + 1 < numbers.length() && Character.isDigit(numbers.charAt(i + 1))) {
                     sb.append(numbers.charAt(i + 1));
                     i++;
                 }
