@@ -91,6 +91,7 @@ public class AdderServiceV1 implements AdderService {
             }
         }
 
+        if (sb.length() == 0) return new int[0];
         return Arrays.stream(sb.toString().split(","))
                 .mapToInt(Integer::parseInt)
                 .toArray();
