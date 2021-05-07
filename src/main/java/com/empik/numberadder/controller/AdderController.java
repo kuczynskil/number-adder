@@ -18,6 +18,7 @@ public class AdderController {
 
     @GetMapping("")
     public ResponseEntity<String> getSum(@RequestParam(defaultValue = "") String numbers) {
+        System.out.println(numbers);
         int[] negativeNumbers = adderServiceV1.getNegativeNumbers(numbers);
 
         if (negativeNumbers.length > 0) {
