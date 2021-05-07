@@ -98,12 +98,14 @@ public class AdderServiceV1 implements AdderService {
 
 
     public static void main(String[] args) {
-        String str = "//[abc][..]1000..20";
-        String str2 = "//[abc][..]1000..20";
-        String str3 = "//[abc][..]100..20";
-        System.out.println(new AdderServiceV1().add(str));
-        System.out.println(new AdderServiceV1().add(str2));
-        System.out.println(new AdderServiceV1().add(str3));
-        resultOccurrence.entrySet().forEach(System.out::println);
+        String str4 = "-400-700-2-99;abc";
+//        String str = "//[abc][..]1000..20";
+//        String str2 = "//[abc][..]1000..20";
+//        String str3 = "//[abc][..]100..20";
+//        System.out.println(new AdderServiceV1().add(str));
+//        System.out.println(new AdderServiceV1().add(str2));
+//        System.out.println(new AdderServiceV1().add(str3));
+        System.out.println(Arrays.toString(new AdderServiceV1().getNegativeNumbers(str4)));
+//        resultOccurrence.entrySet().forEach(System.out::println);
     }
 }
