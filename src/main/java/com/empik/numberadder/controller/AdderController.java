@@ -18,7 +18,6 @@ public class AdderController {
 
     @GetMapping("")
     public ResponseEntity<String> getSum(@RequestParam(defaultValue = "") String numbers) {
-        System.out.println(numbers);
         int[] negativeNumbers = adderServiceV1.getNegativeNumbers(numbers);
 
         if (negativeNumbers.length > 0) {
@@ -34,6 +33,13 @@ public class AdderController {
             return new ResponseEntity<>("negatives not allowed: " + sb.toString(), HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(String.valueOf(adderServiceV1.add(numbers)), HttpStatus.OK);
+        int result;
+        try {
+            result = adderServiceV1.add(numbers);
+        } catch (NumberFormatException e) {
+            return new ResponseEntity<>("input not valid", HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(String.valueOf(result), HttpStatus.OK);
     }
 }
