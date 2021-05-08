@@ -3,7 +3,8 @@ Simple microservice returning sum of numbers.
 
 ## General info
 This app returns the sum of numbers that have been passed in a GET parameter.\
-Rest API has been documented by Swagger, which is available at http://<host>:<port>/swagger-ui.
+Rest API has been documented by Swagger.\
+It can be accessed at http://localhost:8080/swagger-ui. (or through different host and port)
 
 ## Technologies
 * Java - version 11
@@ -18,7 +19,7 @@ Summation algorithm accepts following input variants:
 * `"//[;][.][|]1;2.3|5"`
 
 If input is valid microservice returns a JSON object.\
-For example for input "//[;][.][|]1;2.3|5":
+For example for input `"//[;][.][|]1;2.3|5"`:
 
 ```
     {
@@ -30,7 +31,7 @@ For example for input "//[;][.][|]1;2.3|5":
 "Occurred" informs about how many times this result have been returned.\
 Numbers over 1000 are not summed.
 
-If input is invalid app returns "invalid input"
+If input is invalid app returns "invalid input".
 
 The algorithm doesn't take negative numbers.\
 If those occur in the input the app returns "negatives not allowed" + the negative numbers.
