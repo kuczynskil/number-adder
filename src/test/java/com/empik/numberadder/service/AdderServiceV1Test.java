@@ -79,4 +79,12 @@ class AdderServiceV1Test {
         assertEquals(33, adderServiceV1.add("//[abc][d][z][s]\n10abc20d1z1s1"));
         assertEquals(55, adderServiceV1.add("//[--][++][_]\n10--20++10--10_5"));
     }
+
+    @Test
+    void returns_negative_numbers_from_input_as_a_String() {
+        assertArrayEquals(new int[]{-1, -30}, adderServiceV1.getNegativeNumbers("//[;;]1;;-1;;2;;-30"));
+        assertArrayEquals(new int[]{-5, -2,-3}, adderServiceV1.getNegativeNumbers("5,-5,-2,-3,12"));
+        assertArrayEquals(new int[]{-3}, adderServiceV1.getNegativeNumbers("//;\n-3"));
+        assertArrayEquals(new int[]{-3}, adderServiceV1.getNegativeNumbers("-3,          -0,2"));
+    }
 }
