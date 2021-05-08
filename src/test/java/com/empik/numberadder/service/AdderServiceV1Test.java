@@ -49,13 +49,6 @@ class AdderServiceV1Test {
     }
 
     @Test
-    void returns_minus1_for_bad_input() {
-        assertEquals(-1, adderServiceV1.add("1,\n"));
-        assertEquals(-1, adderServiceV1.add("1,m"));
-        assertEquals(-1, adderServiceV1.add("1,2,5G"));
-    }
-
-    @Test
     void returns_sum_of_numbers_separated_by_delimiter_passed_in_input_String() {
         assertEquals(3, adderServiceV1.add("//;\n1;2"));
         assertEquals(45, adderServiceV1.add("//,23,22"));
