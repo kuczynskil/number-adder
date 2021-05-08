@@ -10,7 +10,7 @@ public class AdderServiceV1 implements AdderService {
     private static final Set<Character> SPECIAL_CHARACTERS = new HashSet<>(Arrays.asList(
             '<', '(', '[', '{', '\\', '^', '-', '=', '$', '!', '|', ']', '}', ')', '?', '*', '+', '.', '>'));
 
-    static Map<Integer, Integer> resultOccurrence = new HashMap<>();
+    public static Map<Integer, Integer> resultOccurrence = new HashMap<>();
 
     @Override
     public int add(String numbers) {
@@ -75,9 +75,12 @@ public class AdderServiceV1 implements AdderService {
     }
 
     public int[] getNegativeNumbers(String numbers) {
-        String[] delimiters = extractDelimiters(numbers).split("\\|");
-        for (String delimiter : delimiters) {
-            if (delimiter.contains("-")) numbers = numbers.replace(delimiter.replace("\\", ""), ",");
+        if (numbers.charAt(0) == '/') {
+            String[] delimiters = extractDelimiters(numbers).split("\\|");
+
+            for (String delimiter : delimiters) {
+                if (delimiter.contains("-")) numbers = numbers.replace(delimiter.replace("\\", ""), ",");
+            }
         }
 
         StringBuilder sb = new StringBuilder();
