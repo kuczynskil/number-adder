@@ -1,6 +1,8 @@
 package com.empik.numberadder.controller;
 
 import com.empik.numberadder.service.AdderServiceV1;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +19,7 @@ public class AdderController {
     }
 
     @GetMapping("")
-    public ResponseEntity<String> getSum(@RequestParam(defaultValue = "") String numbers) {
+    public ResponseEntity<Object> getSum(@RequestParam(defaultValue = "") String numbers) throws JsonProcessingException {
         int[] negativeNumbers = adderServiceV1.getNegativeNumbers(numbers);
 
         if (negativeNumbers.length > 0) {
@@ -36,8 +38,10 @@ public class AdderController {
             return new ResponseEntity<>("invalid input", HttpStatus.OK);
         }
 
-        String response = String.format("Result: %d<br>Occurred: %d", result, resOccurrence);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        String json = String.format("{\"result\":%d,\"occurred\":%d}", result, resOccurrence);
+
+//        String response = String.format("Result: %d<br>Occurred: %d", result, resOccurrence);
+        return new ResponseEntity<>(new ObjectMapper().readValue(json, Object.class), HttpStatus.OK);
     }
 
     private void appendNegativeNums(int[] negativeNumbers, StringBuilder sb) {
