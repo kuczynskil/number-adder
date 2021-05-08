@@ -3,6 +3,7 @@ package com.empik.numberadder.controller;
 import com.empik.numberadder.service.SumServiceV1;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,13 @@ public class SumController {
     }
 
     @GetMapping("")
-    public ResponseEntity<Object> getSum(@RequestParam(defaultValue = "") String numbers) throws JsonProcessingException {
+    public ResponseEntity<Object> getSum(
+            @ApiParam(value = "Possible input variants:" +
+                    "\n1)     1,2,3,5,10" +
+                    "\n2)     1,5,9%0A15" +
+                    "\n3)     //;1;2;3" +
+                    "\n4)     //[;][.][|]1;2.3|5")
+            @RequestParam(defaultValue = "") String numbers) throws JsonProcessingException {
         int[] negativeNumbers = sumServiceV1.getNegativeNumbers(numbers);
 
         if (negativeNumbers.length > 0) return negativeNumbersResponse(negativeNumbers);
