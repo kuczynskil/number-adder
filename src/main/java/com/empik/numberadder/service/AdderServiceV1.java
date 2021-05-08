@@ -10,7 +10,7 @@ public class AdderServiceV1 implements AdderService {
     private static final Set<Character> SPECIAL_CHARACTERS = new HashSet<>(Arrays.asList(
             '<', '(', '[', '{', '\\', '^', '-', '=', '$', '!', '|', ']', '}', ')', '?', '*', '+', '.', '>'));
 
-    public static Map<Integer, Integer> resultOccurrence = new HashMap<>();
+    private static Map<Integer, Integer> resultOccurrence = new HashMap<>();
 
     @Override
     public int add(String numbers) {
@@ -60,6 +60,10 @@ public class AdderServiceV1 implements AdderService {
         if (resultOccurrence.containsKey(res)) {
             resultOccurrence.put(res, resultOccurrence.get(res) + 1);
         } else resultOccurrence.put(res, 1);
+    }
+
+    public int getResultOccurrence(int res) {
+        return resultOccurrence.get(res);
     }
 
 
