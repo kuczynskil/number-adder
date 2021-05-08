@@ -18,20 +18,22 @@ Summation algorithm accepts following input variants:
 * `"//[;][.][|]1;2.3|5"`
 
 If input is valid microservice returns a JSON object.\
-For example for input "//[;][.][|]1;2.3|5":\
+For example for input "//[;][.][|]1;2.3|5":
 
-`{
-  "result": 11,
-  "occurred": 1
-}`\
+```
+    {
+      "result": 11,
+      "occurred": 1
+    }
+ ```
 
 "Occurred" informs about how many times this result have been returned.\
 Numbers over 1000 are not summed.
 
-If input is invalid app returns "invalid input".\
+If input is invalid app returns "invalid input"
 
-The algorithm doesn't take negative numbers and if those occur\
-in the input String returns "negatives not allowed" + the negative numbers.
+The algorithm doesn't take negative numbers.\
+If those occur in the input the app returns "negatives not allowed" + the negative numbers.
 
 
 ## Contact
