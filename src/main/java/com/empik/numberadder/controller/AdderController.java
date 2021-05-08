@@ -22,14 +22,7 @@ public class AdderController {
 
         if (negativeNumbers.length > 0) {
             StringBuilder sb = new StringBuilder();
-            sb.append("[");
-
-            for (int i = 0; i < negativeNumbers.length; i++) {
-                if (i == negativeNumbers.length - 1) sb.append(negativeNumbers[i]);
-                else sb.append(negativeNumbers[i]).append(", ");
-            }
-            sb.append("]");
-
+            appendNegativeNums(negativeNumbers, sb);
             return new ResponseEntity<>("negatives not allowed: " + sb.toString(), HttpStatus.OK);
         }
 
@@ -45,5 +38,15 @@ public class AdderController {
 
         String response = String.format("Result: %d<br>Occurred: %d", result, resOccurrence);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    private void appendNegativeNums(int[] negativeNumbers, StringBuilder sb) {
+        sb.append("[");
+
+        for (int i = 0; i < negativeNumbers.length; i++) {
+            if (i == negativeNumbers.length - 1) sb.append(negativeNumbers[i]);
+            else sb.append(negativeNumbers[i]).append(", ");
+        }
+        sb.append("]");
     }
 }
