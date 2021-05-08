@@ -75,10 +75,15 @@ public class AdderServiceV1 implements AdderService {
     }
 
     public int[] getNegativeNumbers(String numbers) {
+        String[] delimiters = extractDelimiters(numbers).split("\\|");
+        for (String delimiter : delimiters) {
+            if (delimiter.contains("-")) numbers = numbers.replace(delimiter.replace("\\", ""), ",");
+        }
+
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < numbers.length(); i++) {
-            if (numbers.charAt(i) == '-') {
+        for (int i = 0; i < numbers.length() - 1; i++) {
+            if (numbers.charAt(i) == '-' && Character.isDigit(numbers.charAt(i + 1))) {
                 sb.append(numbers.charAt(i));
                 while (i + 1 < numbers.length() && Character.isDigit(numbers.charAt(i + 1))) {
                     sb.append(numbers.charAt(i + 1));
