@@ -14,7 +14,17 @@ public class AdderServiceV1 implements AdderService {
 
     @Override
     public int add(String numbers) {
-        if (numbers.isEmpty()) return 0;
+        if (numbers.isEmpty()) {
+            if (resultOccurrence.containsKey(0)) {
+                resultOccurrence.put(0, resultOccurrence.get(0) + 1);
+            } else resultOccurrence.put(0, 1);
+            return 0;
+        }
+
+        numbers = numbers.trim();
+        if (!Character.isDigit(numbers.charAt(numbers.length() - 1))) {
+            throw new NumberFormatException("Last element is not a number");
+        }
 
         String delimiters = ",";
         if (numbers.charAt(0) == '/') {
