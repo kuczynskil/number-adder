@@ -34,12 +34,16 @@ public class AdderController {
         }
 
         int result;
+        int resOccurrence;
+
         try {
             result = adderServiceV1.add(numbers);
+            resOccurrence = AdderServiceV1.resultOccurrence.get(result);
         } catch (NumberFormatException e) {
             return new ResponseEntity<>("input not valid", HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(String.valueOf(result), HttpStatus.OK);
+        String response = String.format("Result: %d<br>Occurred: %d", result, resOccurrence);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

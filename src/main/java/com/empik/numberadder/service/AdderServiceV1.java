@@ -75,6 +75,7 @@ public class AdderServiceV1 implements AdderService {
     }
 
     public int[] getNegativeNumbers(String numbers) {
+        if (numbers.isEmpty()) return new int[0];
         if (numbers.charAt(0) == '/') {
             String[] delimiters = extractDelimiters(numbers).split("\\|");
 
