@@ -1,5 +1,5 @@
 package com.empik.numberadder.service;
 
-public interface AdderService {
+public interface SumService {
     int add(String numbers);
 }

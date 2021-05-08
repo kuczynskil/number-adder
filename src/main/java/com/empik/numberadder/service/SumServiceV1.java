@@ -5,14 +5,14 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class AdderServiceV1 implements AdderService {
+public class SumServiceV1 implements SumService {
 
     private final DelimitersServiceV1 delimitersServiceV1;
     private final NegativeNumbersServiceV1 negativeNumbersServiceV1;
 
     private static final Map<Integer, Integer> resultOccurrence = new HashMap<>();
 
-    public AdderServiceV1(DelimitersServiceV1 delimitersServiceV1, NegativeNumbersServiceV1 negativeNumbersServiceV1) {
+    public SumServiceV1(DelimitersServiceV1 delimitersServiceV1, NegativeNumbersServiceV1 negativeNumbersServiceV1) {
         this.delimitersServiceV1 = delimitersServiceV1;
         this.negativeNumbersServiceV1 = negativeNumbersServiceV1;
     }
@@ -80,20 +80,5 @@ public class AdderServiceV1 implements AdderService {
 
     public int[] getNegativeNumbers(String numbers) {
         return negativeNumbersServiceV1.getNegativeNumbers(numbers);
-    }
-
-
-
-
-    public static void main(String[] args) {
-        String str4 = "-400-700-2-99;abc";
-//        String str = "//[abc][..]1000..20";
-//        String str2 = "//[abc][..]1000..20";
-//        String str3 = "//[abc][..]100..20";
-//        System.out.println(new AdderServiceV1().add(str));
-//        System.out.println(new AdderServiceV1().add(str2));
-//        System.out.println(new AdderServiceV1().add(str3));
-//        System.out.println(Arrays.toString(new AdderServiceV1(delimitersService_v1).getNegativeNumbers(str4)));
-//        resultOccurrence.entrySet().forEach(System.out::println);
     }
 }
