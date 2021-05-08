@@ -10,7 +10,7 @@ public class AdderServiceV1 implements AdderService {
     private static final Set<Character> SPECIAL_CHARACTERS = new HashSet<>(Arrays.asList(
             '<', '(', '[', '{', '\\', '^', '-', '=', '$', '!', '|', ']', '}', ')', '?', '*', '+', '.', '>'));
 
-    private static Map<Integer, Integer> resultOccurrence = new HashMap<>();
+    private static final Map<Integer, Integer> resultOccurrence = new HashMap<>();
 
     @Override
     public int add(String numbers) {
@@ -78,28 +78,28 @@ public class AdderServiceV1 implements AdderService {
         if (numbers.contains("[") && numbers.contains("]")) {
             String delimiters = numbers.substring(3, numbers.lastIndexOf("]"));
             String[] delimitersArr = delimiters.split("]\\[");
-
-            for (int i = 0; i < delimitersArr.length; i++) {
-                String[] delimiterChars = delimitersArr[i].split("");
-
-                for (int k = 0; k < delimiterChars.length; k++) {
-                    String tested = delimiterChars[k];
-
-                    if (SPECIAL_CHARACTERS.contains(tested.charAt(0))) {
-                        delimiterChars[k] = "\\" + tested;
-                    }
-                }
-                delimitersArr[i] = String.join("", delimiterChars);
-            }
+            handleSpecialCharacters(delimitersArr);
 
             return String.join("|", delimitersArr);
         }
 
         char delimiter = numbers.charAt(2);
-        if (SPECIAL_CHARACTERS.contains(delimiter)) {
-            return "\\" + delimiter;
+        return SPECIAL_CHARACTERS.contains(delimiter) ? "\\" + delimiter : String.valueOf(delimiter);
+    }
+
+    private void handleSpecialCharacters(String[] delimitersArr) {
+        for (int i = 0; i < delimitersArr.length; i++) {
+            String[] delimiterChars = delimitersArr[i].split("");
+
+            for (int k = 0; k < delimiterChars.length; k++) {
+                String tested = delimiterChars[k];
+
+                if (SPECIAL_CHARACTERS.contains(tested.charAt(0))) {
+                    delimiterChars[k] = "\\" + tested;
+                }
+            }
+            delimitersArr[i] = String.join("", delimiterChars);
         }
-        return String.valueOf(delimiter);
     }
 
     public int[] getNegativeNumbers(String numbers) {
