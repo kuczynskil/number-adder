@@ -12,17 +12,17 @@ Rest API has been documented by Swagger, which is available at http://<host>:<po
 
 ## Features
 Summation algorithm accepts following input variants:
-* `"1,2,3,5,10"
-* `"1,5,9%0A15"
-* `"//;1;2;3"
-* `"//[;][.][|]1;2.3|5"
+* `"1,2,3,5,10"`
+* `"1,5,9%0A15"`
+* `"//;1;2;3"`
+* `"//[;][.][|]1;2.3|5"`
 
 If input is valid microservice returns a JSON object.\
 For example for input "//[;][.][|]1;2.3|5":\
 
-`{\
-  "result": 11,\
-  "occurred": 1\
+`{
+  "result": 11,
+  "occurred": 1
 }`\
 
 "Occurred" informs about how many times this result have been returned.\
