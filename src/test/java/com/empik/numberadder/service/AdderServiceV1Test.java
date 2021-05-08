@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AdderServiceV1Test {
 
-    private final AdderServiceV1 adderServiceV1 = new AdderServiceV1();
+    private final AdderServiceV1 adderServiceV1 = new AdderServiceV1(new DelimitersServiceV1());
 
     @Test
     void returns_0_for_empty_String() {

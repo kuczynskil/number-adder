@@ -7,10 +7,13 @@ import java.util.*;
 @Service
 public class AdderServiceV1 implements AdderService {
 
-    private static final Set<Character> SPECIAL_CHARACTERS = new HashSet<>(Arrays.asList(
-            '<', '(', '[', '{', '\\', '^', '-', '=', '$', '!', '|', ']', '}', ')', '?', '*', '+', '.', '>'));
+    private final DelimitersServiceV1 delimitersServiceV1;
 
     private static final Map<Integer, Integer> resultOccurrence = new HashMap<>();
+
+    public AdderServiceV1(DelimitersServiceV1 delimitersServiceV1) {
+        this.delimitersServiceV1 = delimitersServiceV1;
+    }
 
     @Override
     public int add(String numbers) {
@@ -39,7 +42,7 @@ public class AdderServiceV1 implements AdderService {
         String delimiters = ",";
 
         if (numbers.charAt(0) == '/') {
-            delimiters = extractDelimiters(numbers);
+            delimiters = delimitersServiceV1.extractDelimiters(numbers);
             numbers = numbers.substring(firstDigitIndex(numbers));
         } else numbers = numbers.replace("\n", ",");
 
@@ -74,34 +77,6 @@ public class AdderServiceV1 implements AdderService {
         return -1;
     }
 
-    private String extractDelimiters(String numbers) {
-        if (numbers.contains("[") && numbers.contains("]")) {
-            String delimiters = numbers.substring(3, numbers.lastIndexOf("]"));
-            String[] delimitersArr = delimiters.split("]\\[");
-            handleSpecialCharacters(delimitersArr);
-
-            return String.join("|", delimitersArr);
-        }
-
-        char delimiter = numbers.charAt(2);
-        return SPECIAL_CHARACTERS.contains(delimiter) ? "\\" + delimiter : String.valueOf(delimiter);
-    }
-
-    private void handleSpecialCharacters(String[] delimitersArr) {
-        for (int i = 0; i < delimitersArr.length; i++) {
-            String[] delimiterChars = delimitersArr[i].split("");
-
-            for (int k = 0; k < delimiterChars.length; k++) {
-                String tested = delimiterChars[k];
-
-                if (SPECIAL_CHARACTERS.contains(tested.charAt(0))) {
-                    delimiterChars[k] = "\\" + tested;
-                }
-            }
-            delimitersArr[i] = String.join("", delimiterChars);
-        }
-    }
-
     public int[] getNegativeNumbers(String numbers) {
         if (numbers.isEmpty()) return new int[0];
         numbers = handleCustomDelimitersWithMinusSign(numbers);
@@ -118,7 +93,7 @@ public class AdderServiceV1 implements AdderService {
 
     private String handleCustomDelimitersWithMinusSign(String numbers) {
         if (numbers.charAt(0) == '/') {
-            String[] delimiters = extractDelimiters(numbers).split("\\|");
+            String[] delimiters = delimitersServiceV1.extractDelimiters(numbers).split("\\|");
 
             for (String delimiter : delimiters) {
                 if (delimiter.contains("-")) {
@@ -151,7 +126,7 @@ public class AdderServiceV1 implements AdderService {
 //        System.out.println(new AdderServiceV1().add(str));
 //        System.out.println(new AdderServiceV1().add(str2));
 //        System.out.println(new AdderServiceV1().add(str3));
-        System.out.println(Arrays.toString(new AdderServiceV1().getNegativeNumbers(str4)));
+//        System.out.println(Arrays.toString(new AdderServiceV1(delimitersService_v1).getNegativeNumbers(str4)));
 //        resultOccurrence.entrySet().forEach(System.out::println);
     }
 }
