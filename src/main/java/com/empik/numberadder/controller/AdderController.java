@@ -40,7 +40,7 @@ public class AdderController {
             result = adderServiceV1.add(numbers);
             resOccurrence = AdderServiceV1.resultOccurrence.get(result);
         } catch (NumberFormatException e) {
-            return new ResponseEntity<>("input not valid", HttpStatus.OK);
+            return new ResponseEntity<>("invalid input", HttpStatus.OK);
         }
 
         String response = String.format("Result: %d<br>Occurred: %d", result, resOccurrence);
