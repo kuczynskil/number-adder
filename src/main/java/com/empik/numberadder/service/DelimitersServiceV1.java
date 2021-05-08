@@ -25,8 +25,7 @@ public class DelimitersServiceV1 implements DelimitersService {
         return SPECIAL_CHARACTERS.contains(delimiter) ? "\\" + delimiter : String.valueOf(delimiter);
     }
 
-    @Override
-    public void handleSpecialCharacters(String[] delimitersArr) {
+    private void handleSpecialCharacters(String[] delimitersArr) {
         for (int i = 0; i < delimitersArr.length; i++) {
             String[] delimiterChars = delimitersArr[i].split("");
 

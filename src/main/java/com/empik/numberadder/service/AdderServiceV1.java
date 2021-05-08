@@ -8,11 +8,13 @@ import java.util.*;
 public class AdderServiceV1 implements AdderService {
 
     private final DelimitersServiceV1 delimitersServiceV1;
+    private final NegativeNumbersServiceV1 negativeNumbersServiceV1;
 
     private static final Map<Integer, Integer> resultOccurrence = new HashMap<>();
 
-    public AdderServiceV1(DelimitersServiceV1 delimitersServiceV1) {
+    public AdderServiceV1(DelimitersServiceV1 delimitersServiceV1, NegativeNumbersServiceV1 negativeNumbersServiceV1) {
         this.delimitersServiceV1 = delimitersServiceV1;
+        this.negativeNumbersServiceV1 = negativeNumbersServiceV1;
     }
 
     @Override
@@ -69,7 +71,6 @@ public class AdderServiceV1 implements AdderService {
         return resultOccurrence.get(res);
     }
 
-
     private int firstDigitIndex(String numbers) {
         for (int i = 0; i < numbers.length(); i++) {
             if (Character.isDigit(numbers.charAt(i))) return i;
@@ -78,44 +79,10 @@ public class AdderServiceV1 implements AdderService {
     }
 
     public int[] getNegativeNumbers(String numbers) {
-        if (numbers.isEmpty()) return new int[0];
-        numbers = handleCustomDelimitersWithMinusSign(numbers);
-
-        StringBuilder sb = new StringBuilder();
-        appendNegativeNums(numbers, sb);
-
-        if (sb.length() == 0) return new int[0];
-        return Arrays.stream(sb.toString().split(","))
-                .mapToInt(Integer::parseInt)
-                .filter(x -> x < 0)
-                .toArray();
+        return negativeNumbersServiceV1.getNegativeNumbers(numbers);
     }
 
-    private String handleCustomDelimitersWithMinusSign(String numbers) {
-        if (numbers.charAt(0) == '/') {
-            String[] delimiters = delimitersServiceV1.extractDelimiters(numbers).split("\\|");
 
-            for (String delimiter : delimiters) {
-                if (delimiter.contains("-")) {
-                    numbers = numbers.replace(delimiter.replace("\\", ""), ",");
-                }
-            }
-        }
-        return numbers;
-    }
-
-    private void appendNegativeNums(String numbers, StringBuilder sb) {
-        for (int i = 0; i < numbers.length() - 1; i++) {
-            if (numbers.charAt(i) == '-' && Character.isDigit(numbers.charAt(i + 1))) {
-                sb.append(numbers.charAt(i));
-                while (i + 1 < numbers.length() && Character.isDigit(numbers.charAt(i + 1))) {
-                    sb.append(numbers.charAt(i + 1));
-                    i++;
-                }
-                sb.append(",");
-            }
-        }
-    }
 
 
     public static void main(String[] args) {
