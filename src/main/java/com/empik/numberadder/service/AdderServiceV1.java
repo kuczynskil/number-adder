@@ -104,16 +104,32 @@ public class AdderServiceV1 implements AdderService {
 
     public int[] getNegativeNumbers(String numbers) {
         if (numbers.isEmpty()) return new int[0];
+        numbers = handleCustomDelimitersWithMinusSign(numbers);
+
+        StringBuilder sb = new StringBuilder();
+        appendNegativeNums(numbers, sb);
+
+        if (sb.length() == 0) return new int[0];
+        return Arrays.stream(sb.toString().split(","))
+                .mapToInt(Integer::parseInt)
+                .filter(x -> x < 0)
+                .toArray();
+    }
+
+    private String handleCustomDelimitersWithMinusSign(String numbers) {
         if (numbers.charAt(0) == '/') {
             String[] delimiters = extractDelimiters(numbers).split("\\|");
 
             for (String delimiter : delimiters) {
-                if (delimiter.contains("-")) numbers = numbers.replace(delimiter.replace("\\", ""), ",");
+                if (delimiter.contains("-")) {
+                    numbers = numbers.replace(delimiter.replace("\\", ""), ",");
+                }
             }
         }
+        return numbers;
+    }
 
-        StringBuilder sb = new StringBuilder();
-
+    private void appendNegativeNums(String numbers, StringBuilder sb) {
         for (int i = 0; i < numbers.length() - 1; i++) {
             if (numbers.charAt(i) == '-' && Character.isDigit(numbers.charAt(i + 1))) {
                 sb.append(numbers.charAt(i));
@@ -124,12 +140,6 @@ public class AdderServiceV1 implements AdderService {
                 sb.append(",");
             }
         }
-
-        if (sb.length() == 0) return new int[0];
-        return Arrays.stream(sb.toString().split(","))
-                .mapToInt(Integer::parseInt)
-                .filter(x -> x < 0)
-                .toArray();
     }
 
 

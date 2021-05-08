@@ -85,6 +85,9 @@ class AdderServiceV1Test {
         assertArrayEquals(new int[]{-1, -30}, adderServiceV1.getNegativeNumbers("//[;;]1;;-1;;2;;-30"));
         assertArrayEquals(new int[]{-5, -2,-3}, adderServiceV1.getNegativeNumbers("5,-5,-2,-3,12"));
         assertArrayEquals(new int[]{-3}, adderServiceV1.getNegativeNumbers("//;\n-3"));
+
         assertArrayEquals(new int[]{-3}, adderServiceV1.getNegativeNumbers("-3,          -0,2"));
+        assertArrayEquals(new int[]{-3,-2}, adderServiceV1.getNegativeNumbers("-3,0,-2"));
+        assertArrayEquals(new int[]{-3}, adderServiceV1.getNegativeNumbers("-3,0,2,-"));
     }
 }
