@@ -4,7 +4,7 @@ Simple microservice returning sum of numbers.
 ## General info
 This app returns the sum of numbers that have been passed in a GET parameter.\
 Rest API has been documented by Swagger.\
-It can be accessed at http://localhost:8080/swagger-ui. (or through different host and port)
+It can be accessed at http://localhost:8080/swagger-ui/. (or through different host and port)
 
 ## Technologies
 * Java - version 11
