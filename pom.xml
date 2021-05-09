@@ -11,7 +11,7 @@
     <groupId>com.empik</groupId>
     <artifactId>number-adder</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>number-adder</name>
     <description>Simple microservice returning sum of numbers passed in a String.</description>
     <properties>
@@ -49,6 +49,7 @@
             <artifactId>springfox-boot-starter</artifactId>
             <version>3.0.0</version>
         </dependency>
+
     </dependencies>
 
     <build>
